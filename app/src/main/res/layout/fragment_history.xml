@@ -1,0 +1,79 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.christian.viennaeast.HistoryFragment"
+    android:background="#BBBBBB">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_add"
+                android:layout_width="75dp"
+                android:layout_height="50dp"
+                android:layout_margin="2px"
+                android:background="#000050"
+                android:textColor="#FFF"
+                android:gravity="center"
+                android:text="[+]" />
+
+            <ScrollView
+                android:id="@+id/svOne"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/Flight_Header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#BBBBBB"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/Month_Header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#BBBBBB"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <ScrollView
+                    android:id="@+id/svTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TableLayout
+                        android:id="@+id/Table_History"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#BBBBBB">
+
+                    </TableLayout>
+                </ScrollView>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+</FrameLayout>

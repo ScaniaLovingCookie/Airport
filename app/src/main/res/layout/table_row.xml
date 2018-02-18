@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:id="@+id/Row1"
+    android:onClick="RowClick">
+
+    <LinearLayout
+        android:id="@+id/CS_Flight_Layout"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_margin="1dp"
+        android:background="#D0D0D0"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/Callsign_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="#A00000"
+            android:text="CALLSIGN" />
+
+        <TextView
+            android:id="@+id/Flight_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="#A00000"
+            android:text="FlightNumber" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/Gate_view"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_margin="1dp"
+        android:background="#D0D0D0"
+        android:textColor="#A00000"
+        android:text="Gate" />
+
+    <TextView
+        android:id="@+id/AC_view"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_margin="1dp"
+        android:background="#D0D0D0"
+        android:textColor="#A00000"
+        android:text="Aircraft" />
+</TableRow>

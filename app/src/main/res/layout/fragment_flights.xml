@@ -1,0 +1,92 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.christian.viennaeast.FlightsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:id="@+id/Row0"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#000000">
+
+                <LinearLayout
+                    android:id="@+id/CS_Flight_Layout"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#B0B0B0"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/Callsign_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="CALLSIGN"
+                        android:textColor="#A00000" />
+
+                    <TextView
+                        android:id="@+id/Flight_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="FlightNumber"
+                        android:textColor="#A00000" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/Gate_view"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="#B0B0B0"
+                    android:gravity="center"
+                    android:text="Gate"
+                    android:textColor="#A00000" />
+
+                <TextView
+                    android:id="@+id/AC_view"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="#B0B0B0"
+                    android:gravity="center"
+                    android:text="Aircraft"
+                    android:textColor="#A00000" />
+            </TableRow>
+
+
+        </TableLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout
+                android:id="@+id/TableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TableLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</FrameLayout>
