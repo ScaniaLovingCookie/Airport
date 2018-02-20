@@ -477,4 +477,13 @@ public class XML {
     public static List<String> getIATAs() {
         return IATAs;
     }
+
+    public static Crush CrushByIATA(String iata){
+
+        for (Crush c:allActiveFlights){
+            if(c.getIATA().equals(iata)){
+                return c;
+            }
+        }return null;
+    }
 }

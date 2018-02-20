@@ -297,6 +297,58 @@ public class MainActivity extends AppCompatActivity
                         ){
                             t = t + s + "\n";
                         }
+
+//                        if((a.length > 2 && (XML.getIATAs().contains(a[0].toUpperCase())) &&
+//                                ((a[1].toLowerCase().equals("move")) &&
+//                                        ((a.length > 3 && (a[2].toLowerCase().equals("apron")) && (Arrays.asList("one", "two", "three").contains(a[3].toLowerCase())))
+//                                                || (a.length > 3 && (a[2].toLowerCase().equals("gate")) && (a[3].toLowerCase().equals("one"))) || (a[2].toLowerCase().equals("pattern")) || (a[2].toLowerCase().equals("gone"))
+//                                        ))
+//                        )||((a[0].toLowerCase().equals("airport"))&&((a[1].toLowerCase().equals("close"))||(a[1].toLowerCase().equals("reopen"))))
+//                                ){
+//
+//                        }
+                        String toast = "";
+                        if (a.length > 2 && (XML.getIATAs().contains(a[0].toUpperCase())) && ((a[1].toLowerCase().equals("move")))){
+                            Crush c = XML.CrushByIATA(a[0].toUpperCase());
+                            toast = toast + c.getFirstName() + " " + c.getLastName() + " is moved to:\n ";
+                            if(a.length > 3 && (a[2].toLowerCase().equals("apron"))){
+                                switch (a[3].toLowerCase()){
+                                    case "one":
+                                        toast = toast + "AP1";
+                                        break;
+                                    case "two":
+                                        toast = toast + "AP2";
+                                        break;
+                                    case "three":
+                                        toast = toast + "AP3";
+                                        break;
+                                    default:
+                                        continue;
+                                }
+                            }else if(a.length > 3 && (a[2].toLowerCase().equals("gate")) && (a[3].toLowerCase().equals("one"))){
+                                toast = toast + "G01";
+                            }else if(a[2].toLowerCase().equals("pattern")){
+                                toast = toast + "PAT";
+                            }else if(a[2].toLowerCase().equals("gone")){
+                                toast = toast + "\"GONE\"";
+                            }else {
+                                continue;
+                            }
+                        }else if(a.length > 1 && ((a[0].toLowerCase().equals("airport")))){
+                            toast = toast + "airport is being ";
+                            if(a[1].toLowerCase().equals("close")){
+                                toast = toast + "closed";
+                            }else if(a[1].toLowerCase().equals("reopen")){
+                                toast = toast + "re-opened";
+                            }else{
+                                continue;
+                            }
+                        }else{
+                            continue;
+                        }
+                        Log.e("Sys-Voice", toast);
+                        Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
+
                     }
                     textView.setText(t);
                 }

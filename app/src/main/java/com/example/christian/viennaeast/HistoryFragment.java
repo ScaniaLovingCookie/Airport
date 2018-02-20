@@ -48,6 +48,7 @@ public class HistoryFragment extends Fragment {
 
     AlertDialog.Builder builder_add;
     AlertDialog.Builder builder_click;
+    AlertDialog.Builder builder_months;
 
     LinearLayout Flights, Months;
     TableLayout Table;
@@ -57,6 +58,7 @@ public class HistoryFragment extends Fragment {
     TableRow.LayoutParams tabLparams;
 
     View.OnClickListener c;
+    View.OnClickListener cm;
 
 
     public HistoryFragment() {
@@ -179,9 +181,52 @@ public class HistoryFragment extends Fragment {
             }
         };
 
+        cm = new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                final ViewGroup vg1 = (ViewGroup) view.getParent();
+
+                builder_months = new AlertDialog.Builder(getContext());
+                builder_months.setTitle("Delete?");
+
+
+
+                builder_months.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        Log.e("text", Text_click[0]);
+                        delete(vg1.indexOfChild(view));
+                    }
+                });
+                builder_months.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder_months.show();
+            }
+        };
+
         draw();
 
         return root;
+    }
+
+    private void delete(int row){
+        XML.readHistoryXML(getContext());
+
+        List<List<String>> ll = XML.getHistory();
+        List<String> m = XML.getMonths();
+
+        m.remove(row);
+        for (List<String> l:ll){
+            l.remove(row);
+        }
+
+        XML.saveHistoryXML(getContext(), ll, m);
+        draw();
     }
 
     private void change(int row, int item, String new_s){
@@ -204,8 +249,97 @@ public class HistoryFragment extends Fragment {
         List<List<String>> ll = XML.getHistory();
         List<String> m = XML.getMonths();
 
-        for(List<String> l:ll){
-            l.add("-");
+        for(int i = 0; i<ll.size(); i++){
+            String s;
+            switch (XML.getAllActiveFlights()[i].getGate()){
+                case "G01":
+                    s="G01";
+                    break;
+                case "G11":
+                    s="AP1";
+                    break;
+                case "G12":
+                    s="AP1";
+                    break;
+                case "G13":
+                    s="AP1";
+                    break;
+                case "G14":
+                    s="AP1";
+                    break;
+                case "G15":
+                    s="AP1";
+                    break;
+                case "G16":
+                    s="AP1";
+                    break;
+                case "G17":
+                    s="AP1";
+                    break;
+                case "G18":
+                    s="AP1";
+                    break;
+                case "G21":
+                    s="AP2";
+                    break;
+                case "G22":
+                    s="AP2";
+                    break;
+                case "G23":
+                    s="AP2";
+                    break;
+                case "G24":
+                    s="AP2";
+                    break;
+                case "G25":
+                    s="AP2";
+                    break;
+                case "G26":
+                    s="AP2";
+                    break;
+                case "G27":
+                    s="AP2";
+                    break;
+                case "G28":
+                    s="AP2";
+                    break;
+                case "G31":
+                    s="AP3";
+                    break;
+                case "G32":
+                    s="AP3";
+                    break;
+                case "G33":
+                    s="AP3";
+                    break;
+                case "G34":
+                    s="AP3";
+                    break;
+                case "G35":
+                    s="AP3";
+                    break;
+                case "G36":
+                    s="AP3";
+                    break;
+                case "G37":
+                    s="AP3";
+                    break;
+                case "G38":
+                    s="AP3";
+                    break;
+                case "Pattern":
+                    s="PAT";
+                    break;
+                case "GONE":
+                    s="-";
+                    break;
+                default:
+                    s="?";
+
+            }
+            List l = ll.get(i);
+            l.add(s);
+            ll.set(i, l);
         }
         m.add(Month);
 
@@ -256,6 +390,7 @@ public class HistoryFragment extends Fragment {
             HeaderOneText.setBackgroundColor(Color.parseColor("#000050"));
             HeaderOneText.setGravity(Gravity.CENTER);
             HeaderOneText.setText(ms);
+            HeaderOneText.setOnClickListener(cm);
             Months.addView(HeaderOneText);
 
         }
