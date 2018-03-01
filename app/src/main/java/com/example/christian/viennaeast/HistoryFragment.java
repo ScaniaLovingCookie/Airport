@@ -26,8 +26,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +75,8 @@ public class HistoryFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View root = inflater.inflate(R.layout.fragment_history, container, false);
+
+        Log.e("Month", new SimpleDateFormat("MMM YY").format(new Date()).replace(". "," "));
 
         scrollViewOne =(ScrollView)root.findViewById(R.id.svOne);
         scrollViewTwo =(ScrollView)root.findViewById(R.id.svTwo);
