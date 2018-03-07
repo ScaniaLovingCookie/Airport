@@ -1,4 +1,4 @@
-package com.example.christian.viennaeast;
+package com.example.christian.viennaeast.io;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.example.christian.viennaeast.ADT.Crush;
+import com.example.christian.viennaeast.ADT.Ground;
+import com.example.christian.viennaeast.R;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -24,7 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class XML {
+public abstract class XML {
 
     private static Crush[] allActiveFlights = new Crush[0];
     private static Ground GroundMap = new Ground();
@@ -32,6 +36,8 @@ public class XML {
     private static List<String> Months = new ArrayList<>();
 
     private static List<String> IATAs = new ArrayList<>();
+
+    private static List<String[]> Procedures = new ArrayList<>();
 
     public static void readXML(Context context){
 
@@ -85,10 +91,6 @@ public class XML {
                     }
 
                 }else if (eventType == XmlPullParser.END_TAG){
-//                    if(xpp.getName().equals("Flight")){
-//                        allActiveFlights[tmp.getIndex()] = tmp;
-//                        tmp = new Crush();
-//                    }
                     switch (xpp.getName()){
                         case "Flight":
                             allActiveFlights[tmp.getIndex()] = tmp;
@@ -485,5 +487,65 @@ public class XML {
                 return c;
             }
         }return null;
+    }
+
+    public static void readProceduresXML(Context context){
+
+        File f = new File(context.getExternalFilesDir("").getAbsolutePath(), "Procedures.xml");
+
+        FileInputStream fin = null;
+
+        XmlPullParserFactory factory;
+
+        try {
+
+            factory = XmlPullParserFactory.newInstance();
+            factory.setNamespaceAware(true);
+            XmlPullParser xpp = factory.newPullParser();
+            fin = new FileInputStream(f);
+
+            xpp.setInput(fin, null);
+
+            int eventType = xpp.getEventType();
+
+            Procedures = new ArrayList<>();
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                if (eventType == XmlPullParser.START_DOCUMENT) {
+                }else if (eventType == XmlPullParser.START_TAG){
+                    Log.e("tag", xpp.getName());
+                    if(Arrays.asList("p", "c", "w", "i").contains(xpp.getName())){
+                        String[] arr = new String[2];
+                        while (xpp.next() != XmlPullParser.TEXT){}
+                        while (xpp.next() != XmlPullParser.TEXT){}
+                        arr[0] = xpp.getText().replace("\\n", "\n").replace("\\t", "    ");
+                        while (xpp.next() != XmlPullParser.TEXT){}
+                        while (xpp.next() != XmlPullParser.TEXT){}
+                        arr[1] = xpp.getText().replace("\\n", "\n").replace("\\t", "    ");
+                        Procedures.add(arr);
+                    }
+
+                }
+
+                eventType = xpp.next();
+            }
+
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fin != null) {
+                try {
+                    fin.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static List<String[]> getProcedures() {
+        return Procedures;
     }
 }

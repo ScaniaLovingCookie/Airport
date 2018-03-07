@@ -1,4 +1,4 @@
-package com.example.christian.viennaeast;
+package com.example.christian.viennaeast.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,25 +16,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Switch;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
+import com.example.christian.viennaeast.fragments.AirportFragment;
+import com.example.christian.viennaeast.ADT.Crush;
+import com.example.christian.viennaeast.fragments.FlightsFragment;
+import com.example.christian.viennaeast.fragments.HistoryFragment;
+import com.example.christian.viennaeast.fragments.ProceduresFragment;
+import com.example.christian.viennaeast.R;
+import com.example.christian.viennaeast.io.VoiceProcessing;
+import com.example.christian.viennaeast.io.XML;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
+
+import static com.example.christian.viennaeast.io.VoiceProcessing.closeAP;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                closeAP();
+                closeAP(getApplicationContext(), MainActivity.this);
             }
         });
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         fab2.setVisibility(View.INVISIBLE);
 
         if(getSharedPreferences("PASS_SET", 0).getBoolean("Closed", false)){
-            closeAP();
+            closeAP(this, this);
         }
 
     }
@@ -126,6 +126,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            getSharedPreferences("PASS_SET", 0).edit().remove("Pass").apply();
+            Toast.makeText(this, "Pass cleared", Toast.LENGTH_LONG).show();
             return true;
         }
 
@@ -217,49 +219,21 @@ public class MainActivity extends AppCompatActivity
         startActivity(i);
     }
 
-    private void closeAP() {
-        SharedPreferences prefs = getSharedPreferences("PASS_SET", 0);
-        SharedPreferences.Editor edit = getSharedPreferences("PASS_SET", 0).edit();
 
-        if(XML.getGroundMap().getG01().equals("") && !prefs.getBoolean("Closed", false)){
-            Toast.makeText(this, "No Plane in G01!", Toast.LENGTH_SHORT).show();
-            edit.putBoolean("Closed", false);
-            edit.apply();
-            return;
-        }
-
-        Intent i = new Intent(this, ClosedActivity.class);
-        edit = getSharedPreferences("PASS_SET", 0).edit();
-        edit.putBoolean("Closed", true);
-        if (getSharedPreferences("PASS_SET", 0).getString("Hangar", "").equals("")){
-
-            edit.putString("Hangar", XML.getGroundMap().getG01());
-
-        }
-        edit.apply();
-        startActivity(i);
-        finish();
-    }
     public void getSpeechInput(View view) {
 
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.UK.toString());
+        startActivity(new Intent(this, ProceduresActivity.class));
 
-        if (intent.resolveActivity(this.getPackageManager()) != null) {
-            startActivityForResult(intent, 10);
-        } else {
-            Toast.makeText(this, "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show();
-        }
+//        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+//        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+//        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.UK.toString());
+//
+//        if (intent.resolveActivity(this.getPackageManager()) != null) {
+//            startActivityForResult(intent, 10);
+//        } else {
+//            Toast.makeText(this, "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show();
+//        }
     }
-
-    //    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//
-//        XML.readXML(this);
-//        XML.doTable(this, this.getCurrentFocus());
-//
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -301,7 +275,7 @@ public class MainActivity extends AppCompatActivity
                         String toast = "";
                         if (a.length > 2 && (XML.getIATAs().contains(a[0].toUpperCase())) && ((a[1].toLowerCase().equals("move")))){
                             Crush c = XML.CrushByIATA(a[0].toUpperCase());
-                            toast = toast + c.getFlightNumber() + "/" + c.getCallsign() + " is moved to:\n ";
+                            toast = toast + c.getFlightNumber() + "/" + c.getCallsign() + " is moved to:\n";
                             if(a.length > 3 && (a[2].toLowerCase().equals("apron"))){
                                 switch (a[3].toLowerCase()){
                                     case "one":
@@ -318,10 +292,13 @@ public class MainActivity extends AppCompatActivity
                                 }
                             }else if(a.length > 3 && (a[2].toLowerCase().equals("gate")) && (a[3].toLowerCase().equals("one"))){
                                 toast = toast + "G01";
+                                VoiceProcessing.move(this, a[0].toUpperCase(), "G01");
                             }else if(a[2].toLowerCase().equals("pattern")){
                                 toast = toast + "PAT";
+                                VoiceProcessing.move(this, a[0].toUpperCase(), "Pattern");
                             }else if(a[2].toLowerCase().equals("gone")){
                                 toast = toast + "\"GONE\"";
+                                VoiceProcessing.move(this, a[0].toUpperCase(), "GONE");
                             }else {
                                 continue;
                             }

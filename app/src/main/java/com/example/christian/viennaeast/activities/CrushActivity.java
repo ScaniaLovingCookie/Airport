@@ -1,4 +1,4 @@
-package com.example.christian.viennaeast;
+package com.example.christian.viennaeast.activities;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+
+import com.example.christian.viennaeast.ADT.Crush;
+import com.example.christian.viennaeast.R;
+import com.example.christian.viennaeast.io.XML;
 
 public class CrushActivity extends AppCompatActivity {
 

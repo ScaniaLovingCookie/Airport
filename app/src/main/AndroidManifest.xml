@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,54 +19,60 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Password" />
-        <activity
-            android:name=".NewActivity"
-            android:label="@string/title_activity_new"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.christian.viennaeast.MainActivity" />
-        </activity>
-        <activity
-            android:name=".CrushActivity"
-            android:label="@string/title_activity_crush"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.christian.viennaeast.MainActivity" />
-        </activity>
-        <activity
-            android:name=".EventsActivity"
-            android:label="@string/title_activity_events"
-            android:parentActivityName=".CrushActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.christian.viennaeast.CrushActivity" />
-        </activity>
-        <activity
-            android:name=".EditEventActivity"
-            android:label="@string/title_activity_edit_event"
-            android:parentActivityName=".EventsActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.christian.viennaeast.EventsActivity" />
-        </activity>
-        <activity
-            android:name=".GroundActivity"
-            android:label="@string/title_activity_ground"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.christian.viennaeast.MainActivity" />
-        </activity>
-        <activity android:name=".ClosedActivity" />
 
+        <activity android:name=".activities.Password">
+        </activity>
+        <activity
+            android:name=".activities.NewActivity"
+            android:label="@string/title_activity_new"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.christian.viennaeast.activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.CrushActivity"
+            android:label="@string/title_activity_crush"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.christian.viennaeast.activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.EventsActivity"
+            android:label="@string/title_activity_events"
+            android:parentActivityName=".activities.CrushActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.christian.viennaeast.activities.CrushActivity" />
+        </activity>
+        <activity
+            android:name=".activities.EditEventActivity"
+            android:label="@string/title_activity_edit_event"
+            android:parentActivityName=".activities.EventsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.christian.viennaeast.activities.EventsActivity" />
+        </activity>
+        <activity
+            android:name=".activities.GroundActivity"
+            android:label="@string/title_activity_ground"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.christian.viennaeast.activities.MainActivity" />
+        </activity>
+        <activity android:name=".activities.ClosedActivity" />
+        <activity android:name=".activities.EditPasswordActivity" />
+        <activity
+            android:name=".activities.ProceduresActivity"
+            android:label="@string/title_activity_procedures"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

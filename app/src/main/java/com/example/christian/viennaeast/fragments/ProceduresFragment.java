@@ -1,20 +1,14 @@
-package com.example.christian.viennaeast;
+package com.example.christian.viennaeast.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Locale;
-
-import static android.app.Activity.RESULT_OK;
+import com.example.christian.viennaeast.R;
+import com.example.christian.viennaeast.io.XML;
 
 
 /**
@@ -31,6 +25,8 @@ public class ProceduresFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_procedures, container, false);
+
+        XML.readProceduresXML(getContext());
 
         return root;
     }

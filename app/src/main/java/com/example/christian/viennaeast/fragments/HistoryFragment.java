@@ -1,4 +1,4 @@
-package com.example.christian.viennaeast;
+package com.example.christian.viennaeast.fragments;
 
 
 import android.app.AlertDialog;
@@ -14,26 +14,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.lang.reflect.Array;
-import java.text.DateFormat;
+import com.example.christian.viennaeast.ADT.Crush;
+import com.example.christian.viennaeast.R;
+import com.example.christian.viennaeast.io.XML;
+
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
 
 
 /**
@@ -76,7 +73,7 @@ public class HistoryFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_history, container, false);
 
-        Log.e("Month", new SimpleDateFormat("MMM YY").format(new Date()).replace(". "," "));
+        Log.e("Month", new SimpleDateFormat("MMM YY", Locale.UK).format(new Date()).replace(". "," "));
 
         scrollViewOne =(ScrollView)root.findViewById(R.id.svOne);
         scrollViewTwo =(ScrollView)root.findViewById(R.id.svTwo);
@@ -131,7 +128,6 @@ public class HistoryFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Text_add[0] = input_add.getText().toString();
-//                        Log.e("text", Text_add[0]);
                         add(Text_add[0]);
                     }
                 });
@@ -150,9 +146,6 @@ public class HistoryFragment extends Fragment {
             public void onClick(final View view) {
                 final ViewGroup vg1 = (ViewGroup) view.getParent();
                 final ViewGroup vg2 = (ViewGroup) view.getParent().getParent();
-
-//                String s = ((TextView)view).getText().toString() + "/" + vg1.indexOfChild(view) + "/" + vg2.indexOfChild(vg1);
-//                Log.e("test", s);
 
                 final String[] Text_click = new String[1];
 
@@ -182,7 +175,6 @@ public class HistoryFragment extends Fragment {
 
                 builder_click.show();
 
-//                Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
             }
         };
 
@@ -367,10 +359,8 @@ public class HistoryFragment extends Fragment {
             r.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
             for (String s : l){
                 TextView TableText = new TextView(getContext());
-//                TableText.setTextColor(Color.BLACK);
                 TableText.setTextColor(TxtColors.get(Text.indexOf(s)));
                 TableText.setLayoutParams(tabLparams);
-//                TableText.setBackgroundColor(Color.parseColor("#D0D0D0"));
                 TableText.setBackgroundColor(BgColors.get(Text.indexOf(s)));
                 TableText.setGravity(Gravity.CENTER);
                 TableText.setText(s);

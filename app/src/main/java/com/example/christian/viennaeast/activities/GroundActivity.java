@@ -1,4 +1,4 @@
-package com.example.christian.viennaeast;
+package com.example.christian.viennaeast.activities;
 
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
@@ -22,7 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.*;
 import android.widget.TextView;
 
-import static com.example.christian.viennaeast.R.color.colorPrimary;
+import com.example.christian.viennaeast.R;
+import com.example.christian.viennaeast.io.XML;
 
 public class GroundActivity extends AppCompatActivity {
 

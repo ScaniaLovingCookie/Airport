@@ -1,24 +1,19 @@
-package com.example.christian.viennaeast;
+package com.example.christian.viennaeast.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Xml;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.xmlpull.v1.XmlSerializer;
+import com.example.christian.viennaeast.ADT.Crush;
+import com.example.christian.viennaeast.R;
+import com.example.christian.viennaeast.io.XML;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class NewActivity extends AppCompatActivity {
