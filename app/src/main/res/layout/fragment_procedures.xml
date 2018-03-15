@@ -8,22 +8,66 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/TVP"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#FFF"
-            android:text="THIS IS PROCEDURES" />
+        <Button
+            android:id="@+id/button_internal"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_background42"
+            android:text="Internal Procedures"
+            android:textColor="@color/colorAccent2"
+            android:textSize="20dp"
+            android:shadowColor="#000000"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5" />
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            android:onClick="getSpeechInput"
-            tools:ignore="OnClick" />
+            android:id="@+id/button_change"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_background42"
+            android:text="State changes"
+            android:textColor="@color/colorAccent2"
+            android:textSize="20dp"
+            android:shadowColor="#000000"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5" />
+
+        <Button
+            android:id="@+id/button_workflow"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_background42"
+            android:text="Workflows"
+            android:textColor="@color/colorAccent2"
+            android:textSize="20dp"
+            android:shadowColor="#000000"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5" />
+
+        <Button
+            android:id="@+id/button_info"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_background42"
+            android:text="Information"
+            android:textColor="@color/colorAccent2"
+            android:textSize="20dp"
+            android:shadowColor="#000000"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5" />
+
+
     </LinearLayout>
 
 </FrameLayout>

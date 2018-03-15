@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.christian.viennaeast.R;
+import com.example.christian.viennaeast.io.VoiceProcessing;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,7 +19,6 @@ import java.util.Locale;
 public class ClosedActivity extends AppCompatActivity {
 
     SharedPreferences prefs;
-    SharedPreferences.Editor edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,23 +26,18 @@ public class ClosedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_closed);
 
         prefs = getSharedPreferences("PASS_SET", 0);
-        edit = prefs.edit();
 
         Button button = (Button) findViewById(R.id.button_open_again);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                edit.putBoolean("Closed", false);
-                edit.putString("Hangar", "");
-                edit.apply();
-                startActivity(i);
-                Log.e("Date", new SimpleDateFormat("ddMMyy", Locale.getDefault()).format(new Date()));
+                startActivity(new Intent(ClosedActivity.this, MainActivity.class));
                 finish();
+//                VoiceProcessing.reopenAP(getApplicationContext(), ClosedActivity.this);
             }
         });
 
         TextView textView = (TextView) findViewById(R.id.textView47);
-        textView.setText("Airport is closed! \n Plane in Hangar: \n " + prefs.getString("Hangar", ""));
+        textView.setText(String.format("Airport is closed! \n Plane in Hangar: \n%s\n\n Closed since: \n%s", prefs.getString("Hangar", ""), prefs.getString("Start", "")));
     }
 }

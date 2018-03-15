@@ -98,4 +98,17 @@ public class Ground implements Serializable {
         }
         return i;
     }
+
+    public int getApronLength(int n){
+        switch (n){
+            case 1:
+                return getAP1Length();
+            case 2:
+                return getAP2Length();
+            case 3:
+                return getAP3Length();
+            default:
+                return 0;
+        }
+    }
 }

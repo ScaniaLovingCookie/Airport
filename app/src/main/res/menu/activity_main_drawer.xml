@@ -21,6 +21,14 @@
             android:icon="@drawable/ic_procedures"
             android:title="Procedures" />
     </group>
+    <item
+        android:title=" "/>
+    <group>
+        <item
+            android:id="@+id/nav_voice"
+            android:icon="@drawable/ic_voice"
+            android:title="Voice" />
+    </group>
 
     <!--
 

@@ -1,12 +1,17 @@
 package com.example.christian.viennaeast.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -33,8 +39,6 @@ import com.example.christian.viennaeast.io.XML;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
-
-import static com.example.christian.viennaeast.io.VoiceProcessing.closeAP;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -64,7 +68,11 @@ public class MainActivity extends AppCompatActivity
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                closeAP(getApplicationContext(), MainActivity.this);
+                if(getSharedPreferences("PASS_SET", 0).getBoolean("Closed", false)){
+                    VoiceProcessing.reopenAP(getApplicationContext(), MainActivity.this);
+                }else{
+                    VoiceProcessing.closeAP(getApplicationContext(), MainActivity.this);
+                }
             }
         });
 
@@ -86,11 +94,68 @@ public class MainActivity extends AppCompatActivity
 
         fab.setVisibility(View.VISIBLE);
         fab2.setVisibility(View.INVISIBLE);
-
         if(getSharedPreferences("PASS_SET", 0).getBoolean("Closed", false)){
-            closeAP(this, this);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    displayClosed();
+                }
+            }, 500);
         }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(getSharedPreferences("PASS_SET", 0).getBoolean("Closed", false)){
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    displayClosed();
+                }
+            }, 500);
+        }
+    }
+
+    private void displayClosed(){
+        final TextView tv = new TextView(this);
+        tv.setText("AIRPORT CLOSED!");
+        tv.setTextSize(20);
+        tv.setGravity(Gravity.CENTER);
+        tv.setTextColor(getColor(R.color.colorAccent));
+        tv.setBackgroundColor(Color.parseColor("#500000"));
+        getWindowManager().addView(tv, getActionBarLayoutParams());
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                getWindowManager().removeViewImmediate(tv);
+            }
+        }, 5000);
+    }
+
+    private static final int[] ACTION_BAR_SIZE = new int[] {
+            android.R.attr.actionBarSize
+    };
+    private WindowManager.LayoutParams getActionBarLayoutParams() {
+        // Retrieve the height of the status bar
+        final Rect rect = new Rect();
+        getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+        final int statusBarHeight = rect.top;
+
+        // Retrieve the height of the ActionBar
+        final TypedArray actionBarSize = obtainStyledAttributes(ACTION_BAR_SIZE);
+        final int actionBarHeight = actionBarSize.getDimensionPixelSize(0, 0);
+        actionBarSize.recycle();
+
+        // Create the LayoutParams for the View
+        final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.MATCH_PARENT, actionBarHeight,
+                WindowManager.LayoutParams.TYPE_APPLICATION_PANEL,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
+        params.gravity = Gravity.TOP;
+        params.x = 0;
+        params.y = statusBarHeight;
+        return params;
     }
 
     private void newRow() {
@@ -181,6 +246,11 @@ public class MainActivity extends AppCompatActivity
             fab.setVisibility(View.INVISIBLE);
             fab2.setVisibility(View.INVISIBLE);
 
+        } else if (id == R.id.nav_voice){
+            getSpeechInput();
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            return false;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -205,8 +275,6 @@ public class MainActivity extends AppCompatActivity
         Button button = (Button) view;
         Intent i = new Intent(this, GroundActivity.class);
 
-        Log.e("Button", button.getText().toString());
-
         switch (button.getText().toString()){
             case "Gate 01": i.putExtra("tab", 0); break;
             case "Apron One": i.putExtra("tab", 1); break;
@@ -220,19 +288,17 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void getSpeechInput(View view) {
+    public void getSpeechInput() {
 
-        startActivity(new Intent(this, ProceduresActivity.class));
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.UK.toString());
 
-//        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-//        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-//        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.UK.toString());
-//
-//        if (intent.resolveActivity(this.getPackageManager()) != null) {
-//            startActivityForResult(intent, 10);
-//        } else {
-//            Toast.makeText(this, "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show();
-//        }
+        if (intent.resolveActivity(this.getPackageManager()) != null) {
+            startActivityForResult(intent, 10);
+        } else {
+            Toast.makeText(this, "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -251,74 +317,87 @@ public class MainActivity extends AppCompatActivity
             case 10:
                 if (resultCode == RESULT_OK && data != null) {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    TextView textView = (TextView) findViewById(R.id.TVP);
                     String t = "";
-                    for(String s:result){
-                        t = t + s + "\n";
-                    }
-                    t = t + "\n \n";
-                    for(String s:result){
+                    String t2 = "";
+                    for(String s:result) {
                         String[] a = s.split(" ");
-                        if(a.length < 2){
+                        t2 = t2 + s + "\n";
+                        if (a.length < 2) {
                             continue;
                         }
-                        if((a.length > 2 && (XML.getIATAs().contains(a[0].toUpperCase())) &&
-                                ((a[1].toLowerCase().equals("move")) &&
-                                ((a.length > 3 && (a[2].toLowerCase().equals("apron")) && (Arrays.asList("one", "two", "three").contains(a[3].toLowerCase())))
-                                        || (a.length > 3 && (a[2].toLowerCase().equals("gate")) && (a[3].toLowerCase().equals("one"))) || (a[2].toLowerCase().equals("pattern")) || (a[2].toLowerCase().equals("gone"))
-                                ))
-                        )||((a[0].toLowerCase().equals("airport"))&&((a[1].toLowerCase().equals("close"))||(a[1].toLowerCase().equals("reopen"))))
-                        ){
-                            t = t + s + "\n";
+                        if ((a.length > 2 && (XML.getIATAs().contains(a[0].toUpperCase())) &&
+                                (((a[1].toLowerCase().equals("move")) || (a[1].toLowerCase().equals("change"))) &&
+                                        ((a.length > 3 && (a[2].toLowerCase().equals("apron")) && (Arrays.asList("one", "two", "too", "to", "three", "free").contains(a[3].toLowerCase())))
+                                                || (a.length > 3 && (a[2].toLowerCase().equals("gate")) && (a[3].toLowerCase().equals("one"))) || (a[2].toLowerCase().equals("pattern")) || (a[2].toLowerCase().equals("gone"))
+                                        ))
+                        ) || ((a[0].toLowerCase().equals("airport")) && ((a[1].toLowerCase().equals("close")) || (a[1].toLowerCase().equals("reopen"))))
+                                ){
+                            t = s;
                         }
 
                         String toast = "";
-                        if (a.length > 2 && (XML.getIATAs().contains(a[0].toUpperCase())) && ((a[1].toLowerCase().equals("move")))){
+                        if (a.length > 2 && (XML.getIATAs().contains(a[0].toUpperCase())) && ((a[1].toLowerCase().equals("move")) || (a[1].toLowerCase().equals("change")))) {
                             Crush c = XML.CrushByIATA(a[0].toUpperCase());
                             toast = toast + c.getFlightNumber() + "/" + c.getCallsign() + " is moved to:\n";
-                            if(a.length > 3 && (a[2].toLowerCase().equals("apron"))){
-                                switch (a[3].toLowerCase()){
+                            if (a.length > 3 && (a[2].toLowerCase().equals("apron"))) {
+                                switch (a[3].toLowerCase()) {
                                     case "one":
                                         toast = toast + "AP1";
+                                        VoiceProcessing.move(this, a[0].toUpperCase(), "AP1");
                                         break;
                                     case "two":
+                                    case "too":
+                                    case "to":
                                         toast = toast + "AP2";
+                                        VoiceProcessing.move(this, a[0].toUpperCase(), "AP2");
                                         break;
                                     case "three":
+                                    case "free":
                                         toast = toast + "AP3";
+                                        VoiceProcessing.move(this, a[0].toUpperCase(), "AP3");
                                         break;
                                     default:
                                         continue;
                                 }
-                            }else if(a.length > 3 && (a[2].toLowerCase().equals("gate")) && (a[3].toLowerCase().equals("one"))){
+                            } else if (a.length > 3 && (a[2].toLowerCase().equals("gate")) && (a[3].toLowerCase().equals("one"))) {
                                 toast = toast + "G01";
                                 VoiceProcessing.move(this, a[0].toUpperCase(), "G01");
-                            }else if(a[2].toLowerCase().equals("pattern")){
+                            } else if (a[2].toLowerCase().equals("pattern")) {
                                 toast = toast + "PAT";
                                 VoiceProcessing.move(this, a[0].toUpperCase(), "Pattern");
-                            }else if(a[2].toLowerCase().equals("gone")){
+                            } else if (a[2].toLowerCase().equals("gone")) {
                                 toast = toast + "\"GONE\"";
                                 VoiceProcessing.move(this, a[0].toUpperCase(), "GONE");
-                            }else {
+                            } else {
                                 continue;
                             }
-                        }else if(a.length > 1 && ((a[0].toLowerCase().equals("airport")))){
+                        } else if (a.length > 1 && ((a[0].toLowerCase().equals("airport")))) {
                             toast = toast + "airport is being ";
-                            if(a[1].toLowerCase().equals("close")){
+                            if (a[1].toLowerCase().equals("close")) {
+                                VoiceProcessing.closeAP(this, this);
                                 toast = toast + "closed";
-                            }else if(a[1].toLowerCase().equals("reopen")){
+                            } else if (a[1].toLowerCase().equals("reopen")) {
+                                VoiceProcessing.reopenAP(this, this);
                                 toast = toast + "re-opened";
-                            }else{
+                            } else {
                                 continue;
                             }
-                        }else{
+                        } else {
                             continue;
                         }
                         Log.e("Sys-Voice", toast);
                         Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
-
                     }
-                    textView.setText(t);
+                    Log.e("SYS", t2);
+                    if(t.equals("")){
+                        Toast.makeText(this, "Not recognized", Toast.LENGTH_LONG).show();
+                        getSpeechInput();
+                        return;
+                    }
+                    if(navigationView.getMenu().findItem(R.id.nav_flights).isChecked()) {
+                        XML.readXML(this);
+                        XML.doTable(this, this.getCurrentFocus());
+                    }
                 }
                 break;
         }

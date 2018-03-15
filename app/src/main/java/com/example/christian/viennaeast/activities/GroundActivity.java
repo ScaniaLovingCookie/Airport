@@ -47,7 +47,7 @@ public class GroundActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ground);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
@@ -55,10 +55,10 @@ public class GroundActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
@@ -120,30 +120,30 @@ public class GroundActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_ground, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            TextView textView = rootView.findViewById(R.id.section_label);
             textView.setGravity(Gravity.CENTER);
             textView.setTextColor(getResources().getColor(R.color.colorAccent));
             textView.setTextSize(20);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
-            LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.GroundLayout);
+            LinearLayout ll = rootView.findViewById(R.id.GroundLayout);
 
-            TextView label1 = (TextView) rootView.findViewById(R.id.textView31);
-            TextView text1 = (TextView) rootView.findViewById(R.id.textView32);
-            TextView label2 = (TextView) rootView.findViewById(R.id.textView33);
-            TextView text2 = (TextView) rootView.findViewById(R.id.textView34);
-            TextView label3 = (TextView) rootView.findViewById(R.id.textView35);
-            TextView text3 = (TextView) rootView.findViewById(R.id.textView36);
-            TextView label4 = (TextView) rootView.findViewById(R.id.textView37);
-            TextView text4 = (TextView) rootView.findViewById(R.id.textView38);
-            TextView label5 = (TextView) rootView.findViewById(R.id.textView39);
-            TextView text5 = (TextView) rootView.findViewById(R.id.textView40);
-            TextView label6 = (TextView) rootView.findViewById(R.id.textView41);
-            TextView text6 = (TextView) rootView.findViewById(R.id.textView42);
-            TextView label7 = (TextView) rootView.findViewById(R.id.textView43);
-            TextView text7 = (TextView) rootView.findViewById(R.id.textView44);
-            TextView label8 = (TextView) rootView.findViewById(R.id.textView45);
-            TextView text8 = (TextView) rootView.findViewById(R.id.textView46);
+            TextView label1 = rootView.findViewById(R.id.textView31);
+            TextView text1 = rootView.findViewById(R.id.textView32);
+            TextView label2 = rootView.findViewById(R.id.textView33);
+            TextView text2 = rootView.findViewById(R.id.textView34);
+            TextView label3 = rootView.findViewById(R.id.textView35);
+            TextView text3 = rootView.findViewById(R.id.textView36);
+            TextView label4 = rootView.findViewById(R.id.textView37);
+            TextView text4 = rootView.findViewById(R.id.textView38);
+            TextView label5 = rootView.findViewById(R.id.textView39);
+            TextView text5 = rootView.findViewById(R.id.textView40);
+            TextView label6 = rootView.findViewById(R.id.textView41);
+            TextView text6 = rootView.findViewById(R.id.textView42);
+            TextView label7 = rootView.findViewById(R.id.textView43);
+            TextView text7 = rootView.findViewById(R.id.textView44);
+            TextView label8 = rootView.findViewById(R.id.textView45);
+            TextView text8 = rootView.findViewById(R.id.textView46);
 
             int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics());
 

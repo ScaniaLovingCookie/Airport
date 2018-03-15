@@ -73,8 +73,6 @@ public class HistoryFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_history, container, false);
 
-        Log.e("Month", new SimpleDateFormat("MMM YY", Locale.UK).format(new Date()).replace(". "," "));
-
         scrollViewOne =(ScrollView)root.findViewById(R.id.svOne);
         scrollViewTwo =(ScrollView)root.findViewById(R.id.svTwo);
 
@@ -121,6 +119,7 @@ public class HistoryFragment extends Fragment {
                 builder_add.setTitle("New Month");
 
                 final EditText input_add = new EditText(getContext());
+                input_add.setText(new SimpleDateFormat("MMM YY", Locale.UK).format(new Date()));
                 input_add.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder_add.setView(input_add);
 
@@ -248,6 +247,17 @@ public class HistoryFragment extends Fragment {
 
         for(int i = 0; i<ll.size(); i++){
             String s;
+            if(getContext().getSharedPreferences("PASS_SET", 0).getBoolean("Closed", false)){
+                if(XML.getAllActiveFlights()[i].getGate().equals("HANGAR")){
+                    s = "HANG";
+                }else{
+                    s = "/";
+                }
+                List l = ll.get(i);
+                l.add(s);
+                ll.set(i, l);
+                continue;
+            }
             switch (XML.getAllActiveFlights()[i].getGate()){
                 case "G01":
                     s="G01";
@@ -329,6 +339,9 @@ public class HistoryFragment extends Fragment {
                     break;
                 case "GONE":
                     s="-";
+                    break;
+                case "-":
+                    s = "-";
                     break;
                 default:
                     s="?";

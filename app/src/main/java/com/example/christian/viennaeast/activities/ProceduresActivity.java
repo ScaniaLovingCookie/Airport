@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,8 +40,8 @@ public class ProceduresActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     int Last0 = 0;
-    int Last1 = 7;
-    int Last2 = 9;
+    int Last1 = 8;
+    int Last2 = 10;
     int Last3 = 14;
 
     @Override
@@ -50,8 +49,6 @@ public class ProceduresActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_procedures);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -67,28 +64,28 @@ public class ProceduresActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout){
             @Override
             public void onPageSelected(int position) {
-                if(position < 7){
+                if(position < 8){
                     tabLayout.getTabAt(0).select();
                     Last0 = 0;
-                    Last1 = 7;
-                    Last2 = 9;
+                    Last1 = 8;
+                    Last2 = 10;
                     Last3 = 14;
-                }else if(position < 9){
+                }else if(position < 10){
                     tabLayout.getTabAt(1).select();
-                    Last0 = 6;
-                    Last1 = 7;
-                    Last2 = 9;
+                    Last0 = 7;
+                    Last1 = 8;
+                    Last2 = 10;
                     Last3 = 14;
                 }else if(position < 14){
                     tabLayout.getTabAt(2).select();
                     Last0 = 0;
-                    Last1 = 8;
-                    Last2 = 9;
+                    Last1 = 9;
+                    Last2 = 10;
                     Last3 = 14;
                 }else{
                     tabLayout.getTabAt(3).select();
                     Last0 = 0;
-                    Last1 = 7;
+                    Last1 = 8;
                     Last2 = 13;
                     Last3 = 14;
                 }
@@ -122,14 +119,8 @@ public class ProceduresActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        int tab = getIntent().getIntExtra("tab", 0);
+        tabLayout.getTabAt(tab).select();
 
     }
 

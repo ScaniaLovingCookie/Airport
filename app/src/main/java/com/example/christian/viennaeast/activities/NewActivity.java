@@ -14,7 +14,9 @@ import com.example.christian.viennaeast.R;
 import com.example.christian.viennaeast.io.XML;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class NewActivity extends AppCompatActivity {
 
@@ -29,6 +31,11 @@ public class NewActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if(getSharedPreferences("PASS_SET", 0).getBoolean("Closed", false)){
+            Toast.makeText(this, "No Edit in Closed Airport!", Toast.LENGTH_LONG).show();
+            finish();
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +93,8 @@ public class NewActivity extends AppCompatActivity {
 
     private void closeWithResult(boolean delete) {
 
+        XML.readHistoryXML(this.getApplicationContext());
+
         int tmpIndex = activeFlight.getIndex();
 
         if(!delete) {
@@ -102,6 +111,10 @@ public class NewActivity extends AppCompatActivity {
                     Flights[i] = temp[i];
                 }
                 Flights[l] = activeFlight;
+
+                List<List<String>> History = XML.getHistory();
+                History.add(new ArrayList<String>(Collections.nCopies(60, "-")));
+                XML.saveHistoryXML(this.getApplicationContext(), History, XML.getMonths());
 
                 Toast.makeText(this.getApplicationContext(), "new Crush saved", Toast.LENGTH_SHORT).show();
 
@@ -123,6 +136,10 @@ public class NewActivity extends AppCompatActivity {
                 Flights[i] = c;
                 i++;
             }
+
+            List<List<String>> History = XML.getHistory();
+            History.remove(activeFlight.getIndex());
+            XML.saveHistoryXML(this.getApplicationContext(), History, XML.getMonths());
 
             Toast.makeText(this.getApplicationContext(), "Crush deleted", Toast.LENGTH_SHORT).show();
         }

@@ -137,20 +137,23 @@ public abstract class XML {
                                 GONE[ig] = fn;
                                 ig++;
                             }else if(g.charAt(0) == 'G'){
-                                if(g.charAt(1) == '0'){
-                                    G01 = fn;
-                                }else if(g.charAt(1) == '1'){
-                                    AP1[Integer.valueOf(g.charAt(2) + "")-1] = fn;
-                                }else if(g.charAt(1) == '2'){
-                                    AP2[Integer.valueOf(g.charAt(2) + "")-1] = fn;
-                                }else if(g.charAt(1) == '3'){
-                                    AP3[Integer.valueOf(g.charAt(2) + "")-1] = fn;
+                                if(context.getSharedPreferences("PASS_SET", 0).getBoolean("Closed", false)) {
+                                    if (g.charAt(1) == '0') {
+                                        tmp.setGate("HANGAR");
+                                    }else{
+                                        tmp.setGate("Pattern");
+                                    }
                                 }
-                            }
-
-
-
-                            break;
+                                if (g.charAt(1) == '0') {
+                                    G01 = fn;
+                                } else if (g.charAt(1) == '1') {
+                                    AP1[Integer.valueOf(g.charAt(2) + "") - 1] = fn;
+                                } else if (g.charAt(1) == '2') {
+                                    AP2[Integer.valueOf(g.charAt(2) + "") - 1] = fn;
+                                } else if (g.charAt(1) == '3') {
+                                    AP3[Integer.valueOf(g.charAt(2) + "") - 1] = fn;
+                                }
+                            }break;
                         case "Aircraft":
                             tmp.setAircraft(xpp.getText());break;
                         case "Date":
@@ -513,7 +516,6 @@ public abstract class XML {
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_DOCUMENT) {
                 }else if (eventType == XmlPullParser.START_TAG){
-                    Log.e("tag", xpp.getName());
                     if(Arrays.asList("p", "c", "w", "i").contains(xpp.getName())){
                         String[] arr = new String[2];
                         while (xpp.next() != XmlPullParser.TEXT){}

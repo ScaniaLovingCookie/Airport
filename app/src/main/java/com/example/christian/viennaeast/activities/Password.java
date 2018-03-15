@@ -3,14 +3,21 @@ package com.example.christian.viennaeast.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.christian.viennaeast.R;
 
@@ -27,9 +34,9 @@ public class Password extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-
         setContentView(R.layout.activity_password);
 
         passwordEditText = (EditText) findViewById(R.id.passwordedittext);
@@ -52,7 +59,7 @@ public class Password extends Activity{
             }
         });
 
-        SharedPreferences settings = getSharedPreferences("PASS_SET", 0);
+        final SharedPreferences settings = getSharedPreferences("PASS_SET", 0);
         password = settings.getString("Pass", "");
 
         if(password.equals("")){
@@ -70,17 +77,13 @@ public class Password extends Activity{
                 if(passwordEditText.getText().toString().equals(password)){
 
                     passwordEditText.setText("");
-                    startActivity(new Intent(Password.this, MainActivity.class));
-                    finish();
+                    if(settings.getBoolean("Closed", false)){
+                        startActivity(new Intent(Password.this, ClosedActivity.class));
+                        finish();
+                    }else {
+                        startActivity(new Intent(Password.this, MainActivity.class));
+                        finish();
+                    }
                 }}});
-
-
-
-        for(Map.Entry e:getPreferences(0).getAll().entrySet()){
-            Log.e("Prefs", e.getKey() + " / " + e.getValue());
-        }
-        for(Map.Entry e:getSharedPreferences("PASS_SET", 0).getAll().entrySet()){
-            Log.e("SharedPrefs", e.getKey() + " / " + e.getValue());
-        }
     }
 }

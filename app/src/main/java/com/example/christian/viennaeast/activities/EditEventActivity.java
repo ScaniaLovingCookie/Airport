@@ -39,6 +39,11 @@ public class EditEventActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if(getSharedPreferences("PASS_SET", 0).getBoolean("Closed", false)){
+            Toast.makeText(this, "No Edit in Closed Airport!", Toast.LENGTH_LONG).show();
+            finish();
+        }
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +137,6 @@ public class EditEventActivity extends AppCompatActivity {
             }
         }else {
             List<Crush.Event> l = new ArrayList<Crush.Event>();
-            Log.e("index", index + "");
             for(int i = 0; i<Events.length; i++){
                 if(i != index){
                     l.add(Events[i]);
