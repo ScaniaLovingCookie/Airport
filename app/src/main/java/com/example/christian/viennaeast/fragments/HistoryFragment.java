@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -245,111 +244,111 @@ public class HistoryFragment extends Fragment {
         List<List<String>> ll = XML.getHistory();
         List<String> m = XML.getMonths();
 
-        for(int i = 0; i<ll.size(); i++){
+        for(int i = 0; i<ll.size(); i++) {
             String s;
-            if(getContext().getSharedPreferences("PASS_SET", 0).getBoolean("Closed", false)){
-                if(XML.getAllActiveFlights()[i].getGate().equals("HANGAR")){
+            if (getContext().getSharedPreferences("PASS_SET", 0).getBoolean("Closed", false)) {
+                if (XML.getAllActiveFlights()[i].getGate().equals("HANGAR")) {
                     s = "HANG";
-                }else{
+                } else {
                     s = "/";
                 }
                 List l = ll.get(i);
                 l.add(s);
                 ll.set(i, l);
-                continue;
-            }
-            switch (XML.getAllActiveFlights()[i].getGate()){
-                case "G01":
-                    s="G01";
-                    break;
-                case "G11":
-                    s="AP1";
-                    break;
-                case "G12":
-                    s="AP1";
-                    break;
-                case "G13":
-                    s="AP1";
-                    break;
-                case "G14":
-                    s="AP1";
-                    break;
-                case "G15":
-                    s="AP1";
-                    break;
-                case "G16":
-                    s="AP1";
-                    break;
-                case "G17":
-                    s="AP1";
-                    break;
-                case "G18":
-                    s="AP1";
-                    break;
-                case "G21":
-                    s="AP2";
-                    break;
-                case "G22":
-                    s="AP2";
-                    break;
-                case "G23":
-                    s="AP2";
-                    break;
-                case "G24":
-                    s="AP2";
-                    break;
-                case "G25":
-                    s="AP2";
-                    break;
-                case "G26":
-                    s="AP2";
-                    break;
-                case "G27":
-                    s="AP2";
-                    break;
-                case "G28":
-                    s="AP2";
-                    break;
-                case "G31":
-                    s="AP3";
-                    break;
-                case "G32":
-                    s="AP3";
-                    break;
-                case "G33":
-                    s="AP3";
-                    break;
-                case "G34":
-                    s="AP3";
-                    break;
-                case "G35":
-                    s="AP3";
-                    break;
-                case "G36":
-                    s="AP3";
-                    break;
-                case "G37":
-                    s="AP3";
-                    break;
-                case "G38":
-                    s="AP3";
-                    break;
-                case "Pattern":
-                    s="PAT";
-                    break;
-                case "GONE":
-                    s="-";
-                    break;
-                case "-":
-                    s = "-";
-                    break;
-                default:
-                    s="?";
+            }else{
+                switch (XML.getAllActiveFlights()[i].getGate()) {
+                    case "G01":
+                        s = "G01";
+                        break;
+                    case "G11":
+                        s = "AP1";
+                        break;
+                    case "G12":
+                        s = "AP1";
+                        break;
+                    case "G13":
+                        s = "AP1";
+                        break;
+                    case "G14":
+                        s = "AP1";
+                        break;
+                    case "G15":
+                        s = "AP1";
+                        break;
+                    case "G16":
+                        s = "AP1";
+                        break;
+                    case "G17":
+                        s = "AP1";
+                        break;
+                    case "G18":
+                        s = "AP1";
+                        break;
+                    case "G21":
+                        s = "AP2";
+                        break;
+                    case "G22":
+                        s = "AP2";
+                        break;
+                    case "G23":
+                        s = "AP2";
+                        break;
+                    case "G24":
+                        s = "AP2";
+                        break;
+                    case "G25":
+                        s = "AP2";
+                        break;
+                    case "G26":
+                        s = "AP2";
+                        break;
+                    case "G27":
+                        s = "AP2";
+                        break;
+                    case "G28":
+                        s = "AP2";
+                        break;
+                    case "G31":
+                        s = "AP3";
+                        break;
+                    case "G32":
+                        s = "AP3";
+                        break;
+                    case "G33":
+                        s = "AP3";
+                        break;
+                    case "G34":
+                        s = "AP3";
+                        break;
+                    case "G35":
+                        s = "AP3";
+                        break;
+                    case "G36":
+                        s = "AP3";
+                        break;
+                    case "G37":
+                        s = "AP3";
+                        break;
+                    case "G38":
+                        s = "AP3";
+                        break;
+                    case "Pattern":
+                        s = "PAT";
+                        break;
+                    case "GONE":
+                        s = "-";
+                        break;
+                    case "-":
+                        s = "-";
+                        break;
+                    default:
+                        s = "?";
 
+                }
+                List l = ll.get(i);
+                l.add(s);
+                ll.set(i, l);
             }
-            List l = ll.get(i);
-            l.add(s);
-            ll.set(i, l);
         }
         m.add(Month);
 

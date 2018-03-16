@@ -1,7 +1,6 @@
 package com.example.christian.viennaeast.io;
 
 import android.content.Context;
-import android.util.Log;
 import android.util.Xml;
 import android.view.View;
 import android.widget.TableLayout;

@@ -16,7 +16,6 @@ import com.example.christian.viennaeast.io.XML;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class NewActivity extends AppCompatActivity {
 

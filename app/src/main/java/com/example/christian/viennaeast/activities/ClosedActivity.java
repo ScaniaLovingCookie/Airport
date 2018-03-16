@@ -2,19 +2,13 @@ package com.example.christian.viennaeast.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.christian.viennaeast.R;
-import com.example.christian.viennaeast.io.VoiceProcessing;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class ClosedActivity extends AppCompatActivity {
 

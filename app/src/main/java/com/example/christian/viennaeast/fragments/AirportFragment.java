@@ -29,10 +29,10 @@ public class AirportFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_airport, container, false);
 
-        Button b1 = (Button) root.findViewById(R.id.button_G01);
-        Button b2 = (Button) root.findViewById(R.id.button_AP1);
-        Button b3 = (Button) root.findViewById(R.id.button_AP2);
-        Button b4 = (Button) root.findViewById(R.id.button_AP3);
+        Button b1 = root.findViewById(R.id.button_G01);
+        Button b2 = root.findViewById(R.id.button_AP1);
+        Button b3 = root.findViewById(R.id.button_AP2);
+        Button b4 = root.findViewById(R.id.button_AP3);
 //        Button b5 = (Button) root.findViewById(R.id.button_GONE);
 //        Button b6 = (Button) root.findViewById(R.id.button_PAT);
 
