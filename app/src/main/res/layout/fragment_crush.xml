@@ -147,12 +147,39 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Aircraft:"
+            android:text="Boeing:"
             android:textColor="@color/colorAccent"
             android:textSize="20dp" />
 
         <TextView
             android:id="@+id/textView21"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TEST FIVE"
+            android:textColor="#FFF"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textView205"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Airbus:"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView215"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

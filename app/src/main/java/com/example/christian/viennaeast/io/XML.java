@@ -153,8 +153,10 @@ public abstract class XML {
                                     AP3[Integer.valueOf(g.charAt(2) + "") - 1] = fn;
                                 }
                             }break;
-                        case "Aircraft":
-                            tmp.setAircraft(xpp.getText());break;
+                        case "Boeing":
+                            tmp.setBoeing(xpp.getText());break;
+                        case "Airbus":
+                            tmp.setAirbus(xpp.getText());break;
                         case "Date":
                             tmpE.setDate(xpp.getText());break;
                         case "Type":
@@ -205,7 +207,11 @@ public abstract class XML {
         Callsign.setText(c.getCallsign());
         FlightNumber.setText(c.getFlightNumber());
         Gate.setText(c.getGate());
-        AC.setText(c.getAircraft());
+        if(c.getGate().equals("GONE")){
+            AC.setText(c.getAirbus());
+        }else {
+            AC.setText(c.getBoeing());
+        }
 
         ll.addView(row);
     }
@@ -268,9 +274,13 @@ public abstract class XML {
                 serializer.text(aF.getGate());
                 serializer.endTag("", "Gate");
 
-                serializer.startTag("", "Aircraft");
-                serializer.text(aF.getAircraft());
-                serializer.endTag("", "Aircraft");
+                serializer.startTag("", "Boeing");
+                serializer.text(aF.getBoeing());
+                serializer.endTag("", "Boeing");
+
+                serializer.startTag("", "Airbus");
+                serializer.text(aF.getAirbus());
+                serializer.endTag("", "Airbus");
 
                 serializer.startTag("", "Events");
 

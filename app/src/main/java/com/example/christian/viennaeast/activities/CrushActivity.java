@@ -162,16 +162,18 @@ public class CrushActivity extends AppCompatActivity {
             TextView Airline = (TextView) rootView.findViewById(R.id.textView15);
             TextView Airline2 = (TextView) rootView.findViewById(R.id.textView17);
             TextView Gate = (TextView) rootView.findViewById(R.id.textView19);
-            TextView Aircraft = (TextView) rootView.findViewById(R.id.textView21);
+            TextView Boeing = (TextView) rootView.findViewById(R.id.textView21);
+            TextView Airbus = (TextView) rootView.findViewById(R.id.textView215);
 
             Crush active = XML.CrushByFlightIndex(section_number);
 
             FlightNr.setText(active.getFlightNumber());
-            Pilot.setText(active.getFirstName() + " " + active.getLastName());
+            Pilot.setText(String.format("%s %s", active.getFirstName(), active.getLastName()));
             Airline.setText(active.getAirline());
-            Airline2.setText(active.getCallsign() + " (" + active.getIACO() + "/" + active.getIATA() + ")");
+            Airline2.setText(String.format("%s (%s/%s)", active.getCallsign(), active.getIACO(), active.getIATA()));
             Gate.setText(active.getGate());
-            Aircraft.setText(active.getAircraft());
+            Boeing.setText(active.getBoeing());
+            Airbus.setText(active.getAirbus());
 
             return rootView;
         }
@@ -188,15 +190,17 @@ public class CrushActivity extends AppCompatActivity {
             TextView Airline2 = (TextView) rootView.findViewById(R.id.textView17);
             TextView Gate = (TextView) rootView.findViewById(R.id.textView19);
             TextView Aircraft = (TextView) rootView.findViewById(R.id.textView21);
+            TextView Airbus = (TextView) rootView.findViewById(R.id.textView215);
 
             Crush active = XML.CrushByFlightIndex(section_number);
 
             FlightNr.setText(active.getFlightNumber());
-            Pilot.setText(active.getFirstName() + " " + active.getLastName());
+            Pilot.setText(String.format("%s %s", active.getFirstName(), active.getLastName()));
             Airline.setText(active.getAirline());
-            Airline2.setText(active.getCallsign() + " (" + active.getIACO() + "/" + active.getIATA() + ")");
+            Airline2.setText(String.format("%s (%s/%s)", active.getCallsign(), active.getIACO(), active.getIATA()));
             Gate.setText(active.getGate());
-            Aircraft.setText(active.getAircraft());
+            Aircraft.setText(active.getBoeing());
+            Airbus.setText(active.getAirbus());
         }
     }
 

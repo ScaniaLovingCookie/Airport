@@ -15,14 +15,15 @@ public class Crush implements Serializable{
     private String Callsign = "";
     private String FlightNumber = "";
     private String Gate = "";
-    private String Aircraft = "";
+    private String Boeing = "";
+    private String Airbus = "";
 
     private Event[] Events = new Event[0];
 
     private int index = 0;
 
 
-    public Crush(String firstName, String lastName, String IATA, String IACO, String airline, String callsign, String flightNumber, String gate, String aircraft) {
+    public Crush(String firstName, String lastName, String IATA, String IACO, String airline, String callsign, String flightNumber, String gate, String boeing, String airbus) {
         FirstName = firstName;
         LastName = lastName;
         this.IATA = IATA;
@@ -31,7 +32,8 @@ public class Crush implements Serializable{
         Callsign = callsign;
         FlightNumber = flightNumber;
         Gate = gate;
-        Aircraft = aircraft;
+        Boeing = boeing;
+        Airbus = airbus;
     }
 
     public Crush(){
@@ -43,7 +45,8 @@ public class Crush implements Serializable{
         Callsign = "";
         FlightNumber = "";
         Gate = "";
-        Aircraft = "";
+        Boeing = "";
+        Airbus = "";
     }
 
     public String getFirstName(){
@@ -78,8 +81,8 @@ public class Crush implements Serializable{
         return Gate;
     }
 
-    public String getAircraft() {
-        return Aircraft;
+    public String getBoeing() {
+        return Boeing;
     }
 
     public void setFirstName(String firstName) {
@@ -114,9 +117,13 @@ public class Crush implements Serializable{
         Gate = gate;
     }
 
-    public void setAircraft(String aircraft) {
-        Aircraft = aircraft;
+    public void setBoeing(String boeing) {
+        Boeing = boeing;
     }
+
+    public String getAirbus() { return Airbus; }
+
+    public void setAirbus(String airbus) { Airbus = airbus; }
 
     public int getIndex() { return index; }
 
@@ -129,7 +136,7 @@ public class Crush implements Serializable{
     public void setEvents(Event[] events) { Events = events; }
 
     public Crush copy(){
-        return new Crush(this.FirstName, this.LastName, this.IATA, this.IACO, this.Airline, this.Callsign, this.FlightNumber, this.Gate, this.Aircraft);
+        return new Crush(this.FirstName, this.LastName, this.IATA, this.IACO, this.Airline, this.Callsign, this.FlightNumber, this.Gate, this.Boeing, this.Airbus);
     }
 
 

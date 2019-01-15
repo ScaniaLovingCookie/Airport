@@ -21,7 +21,7 @@ public class NewActivity extends AppCompatActivity {
 
     Crush activeFlight = new Crush();
     Crush[] Flights;
-    EditText ET_FirstName, ET_LastName, ET_IATA, ET_IACO, ET_Airline, ET_Callsign, ET_FlightNumber, ET_Gate, ET_Aircraft;
+    EditText ET_FirstName, ET_LastName, ET_IATA, ET_IACO, ET_Airline, ET_Callsign, ET_FlightNumber, ET_Gate, ET_Boeing, ET_Airbus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,8 @@ public class NewActivity extends AppCompatActivity {
         ET_Callsign = (EditText) findViewById(R.id.editText4);
         ET_Airline = (EditText) findViewById(R.id.editText8);
         ET_Gate = (EditText) findViewById(R.id.editText6);
-        ET_Aircraft = (EditText) findViewById(R.id.editText7);
+        ET_Boeing = (EditText) findViewById(R.id.editText7);
+        ET_Airbus = (EditText) findViewById(R.id.editText75);
         ET_FlightNumber =(EditText) findViewById(R.id.editText5);
 
         Flights = XML.getAllActiveFlights();
@@ -78,7 +79,8 @@ public class NewActivity extends AppCompatActivity {
             ET_Callsign.setText(activeFlight.getCallsign());
             ET_Airline.setText(activeFlight.getAirline());
             ET_Gate.setText(activeFlight.getGate());
-            ET_Aircraft.setText(activeFlight.getAircraft());
+            ET_Boeing.setText(activeFlight.getBoeing());
+            ET_Airbus.setText(activeFlight.getAirbus());
             ET_FlightNumber.setText(activeFlight.getFlightNumber());
 
             fab2.setVisibility(View.VISIBLE);
@@ -98,7 +100,7 @@ public class NewActivity extends AppCompatActivity {
 
         if(!delete) {
             activeFlight = new Crush(ET_FirstName.getText().toString(), ET_LastName.getText().toString(), ET_IATA.getText().toString(), ET_IACO.getText().toString(), ET_Airline.getText().toString(),
-                    ET_Callsign.getText().toString(), ET_FlightNumber.getText().toString(), ET_Gate.getText().toString(), ET_Aircraft.getText().toString());
+                    ET_Callsign.getText().toString(), ET_FlightNumber.getText().toString(), ET_Gate.getText().toString(), ET_Boeing.getText().toString(), ET_Airbus.getText().toString());
             activeFlight.setIndex(tmpIndex);
 
             if (getIntent().getSerializableExtra("RequestType").equals("new")) {
